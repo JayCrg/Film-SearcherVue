@@ -31,7 +31,7 @@
         <div class="sinCoincidencias" v-if="Peliculas.Response == 'False'">
             <h2>No se ha encontrado ninguna pelicula</h2>
         </div>
-        <div class="detalle" v-if="mostrar==true">
+        <div class="detalle" v-if="mostrar==true" :style="{ 'top': altura + 'px' }">
             <h2>{{detalle.Title}}</h2>
             <div class="foto">
                 <img v-if='detalle.Poster!="N/A"' :src="detalle.Poster" alt="Cartelera de pelicula">

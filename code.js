@@ -38,6 +38,7 @@ createApp({
             pagina: 1,
             detalle: '',
             scroll: '',
+            altura: 0,
         }
     },
     methods: {
@@ -67,7 +68,8 @@ createApp({
             })
         }
     },
-    computed: {},
+    computed: {            
+    },
     mounted() {
         window.addEventListener('scroll', () => {
             if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 10 && this.scrolling != true) {
@@ -76,6 +78,7 @@ createApp({
                 this.scrolling = true;
                 this.scrollear();
             }
+            this.altura = window.scrollY + 50;
         })
     }
 }).mount('#app')
