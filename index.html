@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Actividad API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body id="app">
+    <header>
+        <h1>Actividad API - Buscador de Pel&iacute;culas y series</h1>
+        <input type="text" name="receta" id="receta" placeholder="Search Film" v-model="tituloPeli" @keyup.enter="buscarPeliculas()">
+        <button id="comprobar" value="Comprobar" @click="buscarPeliculas()">Buscar</button>
+    </header>
+    <main>
+        <template v-if="Peliculas.Search != ''">
+            <div v-for="pelicula in Peliculas.Search" class='pelicula' :id="pelicula.imdbID" :key="pelicula.imdbID"
+                @click="mostrarDetalle(pelicula.imdbID)">
+                <h2>{{pelicula.Title}}</h2>
+                <div>
+                    <img v-if='pelicula.Poster!="N/A"' :src="pelicula.Poster" alt="Cartelera de pelicula">
+                    <img v-else src="no-image-found.webp" alt="Imangen de Cartelera No Encontrada">
+                </div>
+            </div>
+        </template>
+        <div class="sinCoincidencias" v-if="Peliculas.Response == 'False'">
+            <h2>No se ha encontrado ninguna pelicula</h2>
+        </div>
+        <div class="detalle" v-if="mostrar==true">
+            <h2>{{detalle.Title}}</h2>
+            <div class="foto">
+                <img v-if='detalle.Poster!="N/A"' :src="detalle.Poster" alt="Cartelera de pelicula">
+                <img v-else src="no-image-found.webp" alt="Imangen de Cartelera No Encontrada">
+        </div>
+            <div class="texto">
+                <p><b>Director</b>: {{detalle.Director}}</p> 
+                <p><b>Género</b>: {{detalle.Genre}}</p> 
+                <p><b>Duración</b>: {{detalle.Runtime}}</p> 
+                <p><b>Sinopsis</b>: {{detalle.Plot}}</p> 
+                <p><b>Actores</b>: {{detalle.Actors}}</p>
+            </div>
+            <button @click="mostrar=false">X</button>
+        </div>
+    </main>
+</body>
+<script src="code.js" type="module"></script>
+</html>
